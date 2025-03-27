@@ -3,6 +3,7 @@ package systems;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.pathgen.Point;
+import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import enums.DriveStates;
@@ -16,6 +17,7 @@ public class DriveSystem {
     Follower follower;
 
     public DriveSystem(HardwareMap hwMap) {
+        Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hwMap, FConstants.class, LConstants.class);
         CS = DriveStates.INITIALIZE;
         PS = DriveStates.INITIALIZE;
