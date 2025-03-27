@@ -169,4 +169,8 @@ public class GamepadX {
         readGamepad(this.mainGamepad);
         return gamepadTwo;
     }
+
+    public Gamepad getGamepadThree() {
+        return gamepadThree;
+    }
 }
