@@ -63,7 +63,7 @@ public class RobotTeleopTank_Iterative extends OpMode{
     double clawOffset = 0;
 
     public static final double MID_SERVO   =  0.5 ;
-    public static final double CLAW_SPEED  = 0.02 ;        // sets rate to move servo
+    public static final double CLAW_SPEED  = 0.02 ;        // sets rate to move Servo
     public static final double ARM_UP_POWER    =  0.50 ;   // Run arm motor up at 50% power
     public static final double ARM_DOWN_POWER  = -0.25 ;   // Run arm motor down at -25% power
 

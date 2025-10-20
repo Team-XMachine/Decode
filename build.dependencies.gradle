@@ -3,8 +3,9 @@ repositories {
     google()
 
     maven { url = 'https://maven.brott.dev/' }
-    maven { url= "https://maven.pedropathing.com/" }
-
+    maven { url = "https://maven.pedropathing.com/" }
+    maven { url 'https://jitpack.io' }
+    maven { url = "https://mymaven.bylazar.com/releases" }
 }
 
 dependencies {
@@ -17,9 +18,12 @@ dependencies {
     implementation 'org.firstinspires.ftc:FtcCommon:10.2.0'
     implementation 'org.firstinspires.ftc:Vision:10.2.0'
     implementation 'com.pedropathing:pedro:1.0.9'
+    implementation 'com.github.Team-XMachine:parsec:v1.1.7'
+    implementation 'com.pedropathing:telemetry:1.0.0'
+    implementation 'com.bylazar:fullpanels:1.0.6'
+
 
     //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
 }
-

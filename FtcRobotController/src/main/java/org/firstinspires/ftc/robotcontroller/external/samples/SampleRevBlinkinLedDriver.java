@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
  * MANUAL mode allows the user to manually change patterns using the
  * left and right bumpers of a gamepad.
  *
- * Configure the driver on a servo port, and name it "blinkin".
+ * Configure the driver on a Servo port, and name it "blinkin".
  *
  * Displays the first pattern upon init.
  */
