@@ -1,11 +1,6 @@
 package pedroPathing.constants;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.changes;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawOnlyCurrent;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.draw;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.stopRobot;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.telemetryM;
+
 
 import com.bylazar.configurables.PanelsConfigurables;
 import com.bylazar.configurables.annotations.Configurable;
@@ -364,7 +359,7 @@ class ForwardVelocityTuner extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.bWasPressed()) {
+        if (gamepad1.b) {
             Tuning.stopRobot();
             requestOpModeStop();
         }
@@ -402,7 +397,7 @@ class ForwardVelocityTuner extends OpMode {
             Tuning.telemetryM.update(telemetry);
             telemetry.update();
 
-            if (gamepad1.aWasPressed()) {
+            if (gamepad1.a) {
                 Tuning.follower.setXVelocity(average);
                 String message = "XMovement: " + average;
                 Tuning.changes.add(message);
@@ -471,7 +466,7 @@ class LateralVelocityTuner extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.bWasPressed()) {
+        if (gamepad1.b) {
             Tuning.stopRobot();
             requestOpModeStop();
         }
@@ -502,7 +497,7 @@ class LateralVelocityTuner extends OpMode {
             Tuning.telemetryM.debug("Press A to set the Lateral Velocity temporarily (while robot remains on).");
             Tuning.telemetryM.update(telemetry);
 
-            if (gamepad1.aWasPressed()) {
+            if (gamepad1.a) {
                 Tuning.follower.setYVelocity(average);
                 String message = "YMovement: " + average;
                 Tuning.changes.add(message);
@@ -568,7 +563,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.bWasPressed()) {
+        if (gamepad1.b) {
             Tuning.stopRobot();
             requestOpModeStop();
         }
@@ -606,7 +601,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
             Tuning.telemetryM.debug("Press A to set the Forward Zero Power Acceleration temporarily (while robot remains on).");
             Tuning.telemetryM.update(telemetry);
 
-            if (gamepad1.aWasPressed()) {
+            if (gamepad1.a) {
                 Tuning.follower.getConstants().setForwardZeroPowerAcceleration(average);
                 String message = "Forward Zero Power Acceleration: " + average;
                 Tuning.changes.add(message);
@@ -670,7 +665,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.bWasPressed()) {
+        if (gamepad1.b) {
             Tuning.stopRobot();
             requestOpModeStop();
         }
@@ -708,7 +703,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
             Tuning.telemetryM.debug("Press A to set the Lateral Zero Power Acceleration temporarily (while robot remains on).");
             Tuning.telemetryM.update(telemetry);
 
-            if (gamepad1.aWasPressed()) {
+            if (gamepad1.a) {
                 Tuning.follower.getConstants().setLateralZeroPowerAcceleration(average);
                 String message = "Lateral Zero Power Acceleration: " + average;
                 Tuning.changes.add(message);
