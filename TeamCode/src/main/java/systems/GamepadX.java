@@ -14,7 +14,7 @@ public class GamepadX {
     private final Map<String, Boolean> currentState = new HashMap<>();
     private final Map<String, Boolean> previousState = new HashMap<>();
 
-    private final String[] buttonsToTrack = {"b", "y", "a", "x", "left_bumper", "dpad_up", "dpad_down"}; // Add more buttons if needed
+    private final String[] buttonsToTrack = {"b", "y", "a", "x", "dpad_up", "dpad_down", "dpad_left", "dpad_right"}; // Add more buttons if needed
 
     public GamepadX(Gamepad gamepad) {
         this.mainGamepad = gamepad;
@@ -28,6 +28,8 @@ public class GamepadX {
             previousState.put(button + "_ONE", false);
             currentState.put(button + "_TWO", false);
             previousState.put(button + "_TWO", false);
+            currentState.put(button + "_THREE", false);
+            previousState.put(button + "_THREE", false);
         }
     }
 

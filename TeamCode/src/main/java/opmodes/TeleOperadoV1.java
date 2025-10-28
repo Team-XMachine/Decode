@@ -1,6 +1,10 @@
 package opmodes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.limelightvision.LLFieldMap;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,10 +12,15 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+import java.util.List;
+
 import drive.SampleMecanumDrive;
+import enums.IntakeStates;
 import systems.GamepadX;
+import systems.IntakeSystem;
 import util.Globals;
 
 @TeleOp(name="Logan")
@@ -19,17 +28,26 @@ public class TeleOperadoV1 extends LinearOpMode {
 
     SampleMecanumDrive drive;
     DcMotorEx intake, shooter;
-
     CRServo transfer;
 
     Rev2mDistanceSensor checker, itk;
 
     GamepadX gamepad;
 
+    Limelight3A limelight;
+
     boolean c4tch = false;
+    boolean GOTCHA = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight.setPollRateHz(100);
+        limelight.pipelineSwitch(0);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
         gamepad = new GamepadX(gamepad1);
 
@@ -46,15 +64,24 @@ public class TeleOperadoV1 extends LinearOpMode {
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
+
+        limelight.start();
+
         while (opModeIsActive()) {
+
+            double ta = limelight.getLatestResult() == null ? 0 : limelight.getLatestResult().getTa();
 
             telemetry.addData("CHECKER", itk.getDistance(DistanceUnit.CM));
             telemetry.addData("Transfer Servo Power", transfer.getPower());
+            telemetry.addData("Current", intake.getCurrent(CurrentUnit.MILLIAMPS));
+            telemetry.addData("TA", ta);
+
             telemetry.update();
 
             gamepad.readGamepad(gamepad1);
 
             c4tch = itk.getDistance(DistanceUnit.CM) <= Globals.ITK_DISTANCE;
+            GOTCHA = intake.getCurrent(CurrentUnit.MILLIAMPS) >= Globals.MAX_CURRENT;
 
             drive.setWeightedDrivePower(
                     new Pose2d(
@@ -66,15 +93,22 @@ public class TeleOperadoV1 extends LinearOpMode {
 
             if (gamepad.ONEwasBPressed()) {
                 if (!c4tch) {
+                    transfer.setPower(Globals.TRANSFER_POWER);
                     intake.setPower(Globals.INTAKE_POWER);
                 } else {
                     intake.setPower(0);
+                    transfer.setPower(0);
                 }
             }
 
             if (c4tch) {
-                intake.setPower(0);
+                transfer.setPower(0);
+                if(GOTCHA) {
+                    intake.setPower(0);
+                }
             }
+
+
 
             if (gamepad.TWOwasBPressed()) {
                 transfer.setPower(-Globals.TRANSFER_POWER);
@@ -85,12 +119,13 @@ public class TeleOperadoV1 extends LinearOpMode {
             }
 
             if (gamepad.ONEwasAPressed()) {
-                shooter.setPower(Globals.SHOOTER_POWER);
+                shooter.setPower(ta / Globals.SHOOTER_KP);
             }
+
 
             if (gamepad.ONEwasYPressed()) {
                 transfer.setPower(Globals.TRANSFER_POWER);
-                sleep(600);
+                sleep(Globals.TRANSFER_TIME);
                 shooter.setPower(0);
                 transfer.setPower(0);
             }
