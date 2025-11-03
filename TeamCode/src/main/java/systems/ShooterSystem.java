@@ -27,7 +27,8 @@ public class ShooterSystem {
     }
 
     public void update(Robot robot, Telemetry telemetry) {
-        DcMotorEx shooter = robot.getMotor("shooter");
+        DcMotorEx shooter = robot.getMotor("LS");
+        DcMotorEx shooter2 = robot.getMotor("RS");
 
         switch (CS) {
             case INITIALIZE:
@@ -48,6 +49,7 @@ public class ShooterSystem {
                 double power = pid(targetVel, shooter.getVelocity());
 
                 shooter.setPower(Math.max(power, 1.0));
+                shooter2.setPower(-shooter.getPower());
 
                 telemetry.addData("SHOOTER TARGET VEL", targetVel);
                 telemetry.update();

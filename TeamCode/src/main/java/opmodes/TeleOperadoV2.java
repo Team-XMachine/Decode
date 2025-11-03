@@ -59,6 +59,8 @@ public class TeleOperadoV2 extends LinearOpMode {
 
             robot.runDrive(gamepad1);
 
+            double ta = robot.getLimelight().getLatestResult() != null ? robot.getLimelight().getLatestResult().getTa() : 0;
+
 
             telemetry.addLine("========== STATES ==========");
             telemetry.addData("INTAKE CS", IntakeSystem.CS);
@@ -71,8 +73,9 @@ public class TeleOperadoV2 extends LinearOpMode {
             telemetry.addData("INTAKE CURRENT", robot.getMotor("intake").getCurrent(CurrentUnit.MILLIAMPS));
             telemetry.addData("ENTRY SENSOR DISTANCE (CM)", robot.getDistanceSensor("entrySensor").getDistance(DistanceUnit.CM));
             telemetry.addData("ITK SENSOR DISTANCE (CM)", robot.getDistanceSensor("itk").getDistance(DistanceUnit.CM));
-            telemetry.addData("SHOOTER VELOCITY", robot.getMotor("shooter").getVelocity());
-            telemetry.addData("TA", robot.getLimelight().getLatestResult().getTa());
+            telemetry.addData("SHOOTER1 VELOCITY", robot.getMotor("LS").getVelocity());
+            telemetry.addData("SHOOTER2 VELOCITY", robot.getMotor("RS").getVelocity());
+            telemetry.addData("TA", ta);
             telemetry.update();
 
             if (gamepad.ONEwasBPressed()) {

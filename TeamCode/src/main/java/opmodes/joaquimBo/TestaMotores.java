@@ -1,71 +1,73 @@
 package opmodes.joaquimBo;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Config
 @TeleOp(name = "testarMotores")
 public class TestaMotores extends LinearOpMode {
 
-    private DcMotorEx FrenteDireita;
-    private DcMotorEx FrenteEsquerda;
-    private DcMotorEx AtrasDireita;
-    private DcMotorEx AtrasEsquerda;
+    private DcMotorEx FD;
+    private DcMotorEx FE;
+    private DcMotorEx TD;
+    private DcMotorEx TE;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        FrenteDireita = hardwareMap.get(DcMotorEx.class, "front1");
-        FrenteDireita.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FrenteDireita.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        FrenteDireita.setVelocity(0.5);
-        FrenteDireita.setDirection(DcMotorSimple.Direction.FORWARD);
+        FD = hardwareMap.get(DcMotorEx.class, "FD");
+        FD.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FD.setVelocity(0.5);
+        FD.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        FE = hardwareMap.get(DcMotorEx.class, "FE");
+        FE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FE.setVelocity(0.5);
+        FE.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        FrenteEsquerda = hardwareMap.get(DcMotorEx.class, "front2");
-        FrenteEsquerda.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        FrenteEsquerda.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        FrenteEsquerda.setVelocity(0.5);
-        FrenteEsquerda.setDirection(DcMotorSimple.Direction.REVERSE);
+        TD = hardwareMap.get(DcMotorEx.class, "TD");
+        TD.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        TD.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TD.setVelocity(0.5);
+        TD.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        AtrasDireita = hardwareMap.get(DcMotorEx.class, "back1");
-        AtrasDireita.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        AtrasDireita.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        AtrasDireita.setVelocity(0.5);
-        AtrasDireita.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        AtrasEsquerda = hardwareMap.get(DcMotorEx.class, "back2");
-        AtrasEsquerda.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        AtrasEsquerda.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        AtrasEsquerda.setVelocity(0.5);
-        AtrasEsquerda.setDirection(DcMotorSimple.Direction.REVERSE);
+        TE = hardwareMap.get(DcMotorEx.class, "TE");
+        TE.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        TE.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TE.setVelocity(0.5);
+        TE.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
         while (opModeIsActive()) {
+
             if(gamepad1.a) {
-                FrenteDireita.setPower(0.5);
+                FD.setPower(0.5);
             } else {
-                FrenteDireita.setPower(0.0);
+                FD.setPower(0.0);
             }
 
             if(gamepad1.x) {
-                FrenteEsquerda.setPower(0.5);
+                FE.setPower(0.5);
             } else {
-                FrenteEsquerda.setPower(0.0);
+                FE.setPower(0.0);
             }
 
             if(gamepad1.y) {
-                AtrasDireita.setPower(0.5);
+                TD.setPower(0.5);
             } else {
-                AtrasDireita.setPower(0.0);
+                TD.setPower(0.0);
             }
             if(gamepad1.b) {
-                AtrasEsquerda.setPower(0.5);
+                TE.setPower(0.5);
             } else {
-                AtrasEsquerda.setPower(0.0);
+                TE.setPower(0.0);
             }
         }
     }

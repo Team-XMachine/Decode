@@ -1,14 +1,10 @@
 package systems;
 
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-import enums.IntakeStates;
-import enums.ShooterStates;
 import enums.TransferStates;
 import hardware.Robot;
 import util.Globals;
@@ -16,11 +12,6 @@ import util.Globals;
 public class TransferSystem {
 
     public static TransferStates PS, CS = TransferStates.INITIALIZE;
-
-    ElapsedTime time = new ElapsedTime();
-
-    IntakeSystem intakeSystem;
-    ShooterSystem shooterSystem;
 
     public TransferSystem() {
         PS = TransferStates.INITIALIZE;
@@ -33,7 +24,7 @@ public class TransferSystem {
 
         boolean GOTCHA = checker.getDistance(DistanceUnit.CM) <= Globals.ITK_DISTANCE;
 
-        CRServo transfer = robot.getCRServo("transfer");
+        DcMotorEx transfer = robot.getMotor("transfer");
 
         switch (CS) {
             case INITIALIZE:

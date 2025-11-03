@@ -15,9 +15,9 @@ public class Robot {
 
     SampleMecanumDrive drive;
 
-    DcMotorEx intake, shooter;
+    DcMotorEx intake, shooter, shooter2;
 
-    CRServo transfer;
+    DcMotorEx transfer;
 
     Rev2mDistanceSensor checker;
 
@@ -31,9 +31,10 @@ public class Robot {
         this.hwMap = hwMap;
         drive = new SampleMecanumDrive(hwMap);
         intake = hwMap.get(DcMotorEx.class, "intake");
-        shooter = hwMap.get(DcMotorEx.class, "shooter");
+        shooter = hwMap.get(DcMotorEx.class, "LS");
+        shooter2 = hwMap.get(DcMotorEx.class, "RS");
 
-        transfer = hwMap.get(CRServo.class, "transfer");
+        transfer = hwMap.get(DcMotorEx.class, "transfer");
 
         limelight = hwMap.get(Limelight3A.class,"limelight");
 
@@ -42,6 +43,7 @@ public class Robot {
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         limelight.setPollRateHz(100);
         limelight.start();

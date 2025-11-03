@@ -1,7 +1,5 @@
 package pedroPathing.constants;
 
-
-
 import com.bylazar.configurables.PanelsConfigurables;
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.configurables.annotations.IgnoreConfigurable;
@@ -22,12 +20,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * This is the Tuning class. It contains a selection menu for various tuning OpModes.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 6/26/2025
- */
 @Configurable
 @TeleOp(name = "Tuning", group = "Pedro Pathing")
 public class Tuning extends SelectableOpMode {
@@ -105,6 +97,7 @@ public class Tuning extends SelectableOpMode {
     }
 
     /** This creates a full stop of the robot by setting the drive motors to run at 0 power. */
+
     public static void stopRobot() {
         follower.startTeleopDrive(true);
         follower.setTeleOpDrive(0,0,0,true);
@@ -115,16 +108,14 @@ public class Tuning extends SelectableOpMode {
  * This is the LocalizationTest OpMode. This is basically just a simple mecanum drive attached to a
  * PoseUpdater. The OpMode will print out the robot's pose to telemetry as well as draw the robot.
  * You should use this to check the robot's localization.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 5/6/2024
- */
+*/
+
 class LocalizationTest extends OpMode {
     @Override
     public void init() {}
 
     /** This initializes the PoseUpdater, the mecanum drive motors, and the Panels telemetry. */
+
     @Override
     public void init_loop() {
         Tuning.telemetryM.debug("This will print your robot's position to telemetry while "
@@ -144,15 +135,16 @@ class LocalizationTest extends OpMode {
      * This updates the robot's pose estimate, the simple mecanum drive, and updates the
      * Panels telemetry with the robot's position as well as draws the robot's position.
      */
+
     @Override
     public void loop() {
         Tuning.follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, true);
         Tuning.follower.update();
 
-        Tuning.telemetryM.debug("x:" + Tuning.follower.getPose().getX());
-        Tuning.telemetryM.debug("y:" + Tuning.follower.getPose().getY());
-        Tuning.telemetryM.debug("heading:" + Tuning.follower.getPose().getHeading());
-        Tuning.telemetryM.debug("total heading:" + Tuning.follower.getTotalHeading());
+        Tuning.telemetryM.debug("x: " + Tuning.follower.getPose().getX());
+        Tuning.telemetryM.debug("y: " + Tuning.follower.getPose().getY());
+        Tuning.telemetryM.debug("heading: " + Tuning.follower.getPose().getHeading());
+        Tuning.telemetryM.debug("total heading: " + Tuning.follower.getTotalHeading());
         Tuning.telemetryM.update(telemetry);
 
         Tuning.draw();
@@ -167,11 +159,8 @@ class LocalizationTest extends OpMode {
  * at the end of the distance, record the ticks to inches multiplier. Feel free to run multiple trials
  * and average the results. Then, input the multiplier into the forward ticks to inches in your
  * localizer of choice.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 5/6/2024
  */
+
 class ForwardTuner extends OpMode {
     public static double DISTANCE = 48;
 
@@ -182,6 +171,7 @@ class ForwardTuner extends OpMode {
     }
 
     /** This initializes the PoseUpdater as well as the Panels telemetry. */
+
     @Override
     public void init_loop() {
         Tuning.telemetryM.debug("Pull your robot forward " + DISTANCE + " inches. Your forward ticks to inches will be shown on the telemetry.");
@@ -193,6 +183,7 @@ class ForwardTuner extends OpMode {
      * This updates the robot's pose estimate, and updates the Panels telemetry with the
      * calculated multiplier and draws the robot.
      */
+
     @Override
     public void loop() {
         Tuning.follower.update();
@@ -214,11 +205,8 @@ class ForwardTuner extends OpMode {
  * at the end of the distance, record the ticks to inches multiplier. Feel free to run multiple trials
  * and average the results. Then, input the multiplier into the strafe ticks to inches in your
  * localizer of choice.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 2.0, 6/26/2025
  */
+
 class LateralTuner extends OpMode {
     public static double DISTANCE = 48;
 
@@ -229,6 +217,7 @@ class LateralTuner extends OpMode {
     }
 
     /** This initializes the PoseUpdater as well as the Panels telemetry. */
+
     @Override
     public void init_loop() {
         Tuning.telemetryM.debug("Pull your robot to the right " + DISTANCE + " inches. Your strafe ticks to inches will be shown on the telemetry.");
@@ -240,6 +229,7 @@ class LateralTuner extends OpMode {
      * This updates the robot's pose estimate, and updates the Panels telemetry with the
      * calculated multiplier and draws the robot.
      */
+
     @Override
     public void loop() {
         Tuning.follower.update();
@@ -261,11 +251,8 @@ class LateralTuner extends OpMode {
  * When you're at the end of the angle, record the ticks to inches multiplier. Feel free to run
  * multiple trials and average the results. Then, input the multiplier into the turning ticks to
  * radians in your localizer of choice.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 5/6/2024
  */
+
 class TurnTuner extends OpMode {
     public static double ANGLE = 2 * Math.PI;
 
@@ -276,6 +263,7 @@ class TurnTuner extends OpMode {
     }
 
     /** This initializes the PoseUpdater as well as the Panels telemetry. */
+
     @Override
     public void init_loop() {
         Tuning.telemetryM.debug("Turn your robot " + ANGLE + " radians. Your turn ticks to inches will be shown on the telemetry.");
@@ -288,6 +276,7 @@ class TurnTuner extends OpMode {
      * This updates the robot's pose estimate, and updates the Panels telemetry with the
      * calculated multiplier and draws the robot.
      */
+
     @Override
     public void loop() {
         Tuning.follower.update();
@@ -309,13 +298,8 @@ class TurnTuner extends OpMode {
  * is, when paired with StrafeVelocityTuner, allows FollowerConstants to create a Vector that
  * empirically represents the direction your mecanum wheels actually prefer to go in, allowing for
  * more accurate following.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 3/13/2024
  */
+
 class ForwardVelocityTuner extends OpMode {
     private final ArrayList<Double> velocities = new ArrayList<>();
     public static double DISTANCE = 48;
@@ -414,12 +398,6 @@ class ForwardVelocityTuner extends OpMode {
  * is, when paired with ForwardVelocityTuner, allows FollowerConstants to create a Vector that
  * empirically represents the direction your mecanum wheels actually prefer to go in, allowing for
  * more accurate following.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 3/13/2024
  */
 class LateralVelocityTuner extends OpMode {
     private final ArrayList<Double> velocities = new ArrayList<>();
@@ -514,12 +492,6 @@ class LateralVelocityTuner extends OpMode {
  * that number is then printed. This is used to determine how the robot will decelerate in the
  * forward direction when power is cut, making the estimations used in the calculations for the
  * drive Vector more accurate and giving better braking at the end of Paths.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/13/2024
  */
 class ForwardZeroPowerAccelerationTuner extends OpMode {
     private final ArrayList<Double> accelerations = new ArrayList<>();
@@ -618,12 +590,6 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
  * that number is then printed. This is used to determine how the robot will decelerate in the
  * forward direction when power is cut, making the estimations used in the calculations for the
  * drive Vector more accurate and giving better braking at the end of Paths.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @author Baron Henderson - 20077 The Indubitables
- * @version 1.0, 3/13/2024
  */
 class LateralZeroPowerAccelerationTuner extends OpMode {
     private final ArrayList<Double> accelerations = new ArrayList<>();
@@ -717,10 +683,6 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
  * The user should push the robot laterally to test the PIDF and adjust the PIDF values accordingly.
  *
  * @author Baron Henderson - 20077 The Indubitables
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/12/2024
  */
 class TranslationalTuner extends OpMode {
     public static double DISTANCE = 40;
@@ -779,12 +741,6 @@ class TranslationalTuner extends OpMode {
  * This is the Heading PIDF Tuner OpMode. It will keep the robot in place.
  * The user should try to turn the robot to test the PIDF and adjust the PIDF values accordingly.
  * It will try to keep the robot at a constant heading while the user tries to turn it.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/12/2024
  */
 class HeadingTuner extends OpMode {
     public static double DISTANCE = 40;
@@ -847,12 +803,6 @@ class HeadingTuner extends OpMode {
 
 /**
  * This is the Drive PIDF Tuner OpMode. It will run the robot in a straight line going forward and back.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/12/2024
  */
 class DriveTuner extends OpMode {
     public static double DISTANCE = 40;
@@ -925,12 +875,6 @@ class DriveTuner extends OpMode {
 /**
  * This is the Line Test Tuner OpMode. It will drive the robot forward and back
  * The user should push the robot laterally and angular to test out the drive, heading, and translational PIDFs.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/12/2024
  */
 class Line extends OpMode {
     public static double DISTANCE = 40;
@@ -990,22 +934,17 @@ class Line extends OpMode {
  * Path the same distance back to the start. Rinse and repeat! This is good for testing a variety
  * of Vectors, like the drive Vector, the translational Vector, the heading Vector, and the
  * centripetal Vector.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/13/2024
  */
 class CentripetalTuner extends OpMode {
-    public static double DISTANCE = 20;
+    public static double DISTANCE = 150;
     private boolean forward = true;
 
     private Path forwards;
     private Path backwards;
 
     @Override
-    public void init() {}
+    public void init() {
+    }
 
     /**
      * This initializes the Follower and creates the forward and backward Paths.
@@ -1024,8 +963,8 @@ class CentripetalTuner extends OpMode {
     @Override
     public void start() {
         Tuning.follower.activateAllPIDFs();
-        forwards = new Path(new BezierCurve(new Pose(), new Pose(Math.abs(DISTANCE),0), new Pose(Math.abs(DISTANCE),DISTANCE)));
-        backwards = new Path(new BezierCurve(new Pose(Math.abs(DISTANCE),DISTANCE), new Pose(Math.abs(DISTANCE),0), new Pose(0,0)));
+        forwards = new Path(new BezierCurve(new Pose(), new Pose(Math.abs(DISTANCE), 0), new Pose(Math.abs(DISTANCE), DISTANCE)));
+        backwards = new Path(new BezierCurve(new Pose(Math.abs(DISTANCE), DISTANCE), new Pose(Math.abs(DISTANCE), 0), new Pose(0, 0)));
 
         backwards.setTangentHeadingInterpolation();
         backwards.reverseHeadingInterpolation();
@@ -1056,13 +995,10 @@ class CentripetalTuner extends OpMode {
     }
 }
 
+
 /**
  * This is the Triangle autonomous OpMode.
  * It runs the robot in a triangle, with the starting point being the bottom-middle point.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @author Samarth Mahapatra - 1002 CircuitRunners Robotics Surge
- * @version 1.0, 12/30/2024
  */
 class Triangle extends OpMode {
 
@@ -1121,11 +1057,6 @@ class Triangle extends OpMode {
  * a circle, but some Bezier curves that have control points set essentially in a square. However,
  * it turns enough to tune your centripetal force correction and some of your heading. Some lag in
  * heading is to be expected.
- *
- * @author Anyi Lin - 10158 Scott's Bots
- * @author Aaron Yang - 10158 Scott's Bots
- * @author Harrison Womack - 10158 Scott's Bots
- * @version 1.0, 3/12/2024
  */
 class Circle extends OpMode {
     public static double RADIUS = 10;
@@ -1175,9 +1106,6 @@ class Circle extends OpMode {
 
 /**
  * This is the Drawing class. It handles the drawing of stuff on Panels Dashboard, like the robot.
- *
- * @author Lazar - 19234
- * @version 1.1, 5/19/2025
  */
 class Drawing {
     public static final double ROBOT_RADIUS = 9; // woah
@@ -1200,8 +1128,6 @@ class Drawing {
     /**
      * This draws everything that will be used in the Follower's telemetryDebug() method. This takes
      * a Follower as an input, so an instance of the DashbaordDrawingHandler class is not needed.
-     *
-     * @param follower Pedro Follower instance.
      */
     public static void drawDebug(Follower follower) {
         if (follower.getCurrentPath() != null) {
@@ -1218,9 +1144,6 @@ class Drawing {
     /**
      * This draws a robot at a specified Pose with a specified
      * look. The heading is represented as a line.
-     *
-     * @param pose  the Pose to draw the robot at
-     * @param style the parameters used to draw the robot with
      */
     public static void drawRobot(Pose pose, Style style) {
         if (pose == null || Double.isNaN(pose.getX()) || Double.isNaN(pose.getY()) || Double.isNaN(pose.getHeading())) {
@@ -1243,8 +1166,6 @@ class Drawing {
 
     /**
      * This draws a robot at a specified Pose. The heading is represented as a line.
-     *
-     * @param pose the Pose to draw the robot at
      */
     public static void drawRobot(Pose pose) {
         drawRobot(pose, robotLook);
@@ -1252,9 +1173,6 @@ class Drawing {
 
     /**
      * This draws a Path with a specified look.
-     *
-     * @param path  the Path to draw
-     * @param style the parameters used to draw the Path with
      */
     public static void drawPath(Path path, Style style) {
         double[][] points = path.getPanelsDrawingPoints();
@@ -1275,9 +1193,6 @@ class Drawing {
     /**
      * This draws all the Paths in a PathChain with a
      * specified look.
-     *
-     * @param pathChain the PathChain to draw
-     * @param style     the parameters used to draw the PathChain with
      */
     public static void drawPath(PathChain pathChain, Style style) {
         for (int i = 0; i < pathChain.size(); i++) {
@@ -1287,9 +1202,6 @@ class Drawing {
 
     /**
      * This draws the pose history of the robot.
-     *
-     * @param poseTracker the PoseHistory to get the pose history from
-     * @param style       the parameters used to draw the pose history with
      */
     public static void drawPoseHistory(PoseHistory poseTracker, Style style) {
         panelsField.setStyle(style);
@@ -1304,8 +1216,6 @@ class Drawing {
 
     /**
      * This draws the pose history of the robot.
-     *
-     * @param poseTracker the PoseHistory to get the pose history from
      */
     public static void drawPoseHistory(PoseHistory poseTracker) {
         drawPoseHistory(poseTracker, historyLook);
